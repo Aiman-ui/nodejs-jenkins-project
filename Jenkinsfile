@@ -2,32 +2,33 @@ pipeline {
     agent any
 
     tools {
-        nodejs "NodeJS"  // Must match the name configured in Jenkins > Global Tool Configuration
+        nodejs "NodeJS" 
     }
 
     stages {
-        stage('Install dependencies') {
+        stage('Clone') {
+            steps {
+                git 'https://github.com/Aiman-ui/nodejs-jenkins-project.git'
+            }
+        }
+
+        stage('Install Dependencies') {
             steps {
                 sh 'npm install'
             }
         }
 
-        stage('Run tests') {
+        stage('Run Tests') {
             steps {
-                sh 'npm test || true'  // ignore test failure for now
+                sh 'npm test || echo "Tests failed but continuing..."'
             }
         }
 
-        stage('Build') {
+        stage('Node Version') {
             steps {
-                echo 'Build step placeholder'
+                sh 'node -v'
+                sh 'npm -v'
             }
-        }
-    }
-
-    post {
-        always {
-            echo 'Pipeline finished.'
         }
     }
 }
