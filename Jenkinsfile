@@ -6,12 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone') {
-            steps {
-                git 'https://github.com/Aiman-ui/nodejs-jenkins-project.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
